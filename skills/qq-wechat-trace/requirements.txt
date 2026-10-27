@@ -1,0 +1,13 @@
+# 本项目的 pip 依赖：只有一个包。
+#
+#   sqlcipher3 —— 打开 SQLCipher 加密的 QQ / 微信数据库。
+#
+# 版本必须与你的 Python 版本匹配（cp313 / cp314 有 Windows 预编译 wheel，3.12 以下未实测）。
+#
+# 安装：
+#   python -m pip install -r requirements.txt
+#
+# 国内建议先换源（见 references/国内网络环境手册.md §1）：
+#   python -m pip config set global.index-url https://mirrors.aliyun.com/pypi/simple
+#   python -m pip config set global.trusted-host mirrors.aliyun.com
+sqlcipher3==0.6.2

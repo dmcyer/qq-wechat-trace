@@ -1,0 +1,26 @@
+# === 个人信息与产物：永不提交 ===
+config.json
+keys/
+work/
+
+# PII 特征表：含真实 QQ号/微信号/群名，永不提交
+pii_patterns.txt
+
+# 同步前的临时备份
+*.bak-*
+
+# === 通用 ===
+__pycache__/
+*.pyc
+.venv/
+venv/
+node_modules/
+
+# 导出成果（可能含私人聊天记录）
+export_*/
+*.log
+
+# 编辑器
+.idea/
+.vscode/
+.DS_Store

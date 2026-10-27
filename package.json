@@ -1,0 +1,57 @@
+{
+  "name": "qq-wechat-trace",
+  "version": "0.2.0",
+  "description": "Export and archive QQ NT / WeChat PC chat history from local encrypted databases, with reconciliation and gap auditing. Ships as a DSH skill bundle.",
+  "keywords": [
+    "qq",
+    "wechat",
+    "weixin",
+    "export",
+    "chat-history",
+    "sqlcipher",
+    "dsh",
+    "dsh-skill",
+    "skill"
+  ],
+  "license": "MIT",
+  "_license_note": "本仓库全部代码为 MIT。唯一的第三方组件（QQBackup 的 windows_ntqq_get_key.ps1，非商用开源协议第1版，版权 LY/Young-Lord）不随仓库分发，由 skills/qq-wechat-trace/scripts/fetch_qq_key.ps1 在运行时拉取并打补丁，故不构成衍生分发。",
+  "_third_party": {
+    "name": "QQBackup/qq-win-db-key",
+    "url": "https://github.com/QQBackup/qq-win-db-key",
+    "file": "%TEMP%\\qq_get_key_patched_<8位随机>.ps1（运行时临时文件，执行完即删，不入库）",
+    "license": "Non-Commercial Open Source License Version 1.0",
+    "copyright": "Copyright (c) LY (Young-Lord)",
+    "usage": "运行时经 skills/qq-wechat-trace/scripts/fetch_qq_key.ps1 拉取（依次尝试 4 个地址自动回退）；该 wrapper 会打一个补丁（exit $LASTEXITCODE -> exit 0）并以注释标注日期；补丁只改本机临时副本、不传播"
+  },
+  "_skill": {
+    "_note": "DSH 的 skill 是**普通目录**，不是插件：把整个目录放到 <DSH_HOME>/skills/<名字>/ 即可被发现。没有 cordis.patch.yml，也没有 skill.filesystem 这个槽位（平台与第三方插件里都不存在）。",
+    "bundle": "skills/qq-wechat-trace",
+    "install": "把 skills/qq-wechat-trace/ 整个目录复制到 %DSH_HOME%\\skills\\qq-wechat-trace\\",
+    "frontmatter": "name / description 必需；whenToUse、disable-model-invocation、user-invocable、metadata 可选。驼峰旧名（modelInvocable / userInvocable / disableModelInvocation）会导致整个 skill 被忽略；未知字段（如 argument-hint、allowed-tools）被静默忽略、不生效。"
+  },
+  "type": "commonjs",
+  "engines": {
+    "python": ">=3.13",
+    "node": ">=23.8"
+  },
+  "scripts": {
+    "deps": "python skills/qq-wechat-trace/scripts/trace_config.py",
+    "qq:key": "powershell -ExecutionPolicy Bypass -File skills/qq-wechat-trace/scripts/fetch_qq_key.ps1",
+    "qq:key:local": "powershell -ExecutionPolicy Bypass -File skills/qq-wechat-trace/scripts/fetch_qq_key.ps1 -LocalPath",
+    "qq:export": "python skills/qq-wechat-trace/scripts/qq_strip_header.py && python skills/qq-wechat-trace/scripts/qq_export_all.py",
+    "qq:recover": "python skills/qq-wechat-trace/scripts/qq_recover_by_rowid.py",
+    "wx:key": "python skills/qq-wechat-trace/scripts/wx_mem_scan.py",
+    "wx:export": "python skills/qq-wechat-trace/scripts/wx_export_shards.py",
+    "wx:decode": "node skills/qq-wechat-trace/scripts/wx_fix_zstd.mjs",
+    "wx:verify": "python skills/qq-wechat-trace/scripts/wx_verify_fix.py",
+    "gaps": "python skills/qq-wechat-trace/scripts/wx_gap_audit.py"
+  },
+  "files": [
+    "package.json",
+    "LICENSE",
+    "LICENSE-QQBackup-nc.txt",
+    "README.md",
+    "skills/"
+  ],
+  "private": true
+}

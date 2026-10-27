@@ -1,0 +1,28 @@
+{
+  "_README": "复制本文件为 config.json 后填入真实值。config.json 已列入 .gitignore，永不提交。所有键都可以用同名的 QQT_* 环境变量覆盖。",
+
+  "_qq_uin": "你的 QQ 号，纯数字。多账号就多跑几次，每次用环境变量 QQT_QQ_UIN 指定。",
+  "qq_uin": "<QQ_UIN>",
+
+  "_wx_account": "微信账号目录名（<WX_DATA_ROOT> 下与 db_storage 同级的那一层，不用微信可留占位符）。",
+  "wx_account": "<WX_ACCOUNT>",
+
+  "_home": "工作根目录：导出成果、临时文件都放这里。删掉它不影响任何源数据。注意 home 之下还会再分 work/（临时副本）与 export_qq_* / export_wx_*（成果），所以这里写 ./out 就会得到 out/work/ 和 out/export_qq_*/。",
+  "home": "./out",
+
+  "_qq_data_root": "QQ 的 Tencent Files 所在目录（其下每个账号一个子目录）。",
+  "qq_data_root": "<QQ_DATA_ROOT>",
+
+  "_wx_data_root": "微信 xwechat_files 所在目录。",
+  "wx_data_root": "<WX_DATA_ROOT>",
+
+  "_keys_dir": "密钥目录。QQ 密钥按账号分文件：QQ_DB_KEY_<QQ号>.txt；微信放 wx_db_key_map.json。",
+  "keys_dir": "./keys",
+
+  "_groups_wx": "要导出的微信群：[群号, 群名]。只写群号也能跑，但导出文件头会缺群名。",
+  "_groups_qq": "要导出的 QQ 群：[群号, 群名]。",
+  "groups": {
+    "wx": [],
+    "qq": []
+  }
+}

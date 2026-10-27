@@ -1,0 +1,40 @@
+MIT License
+
+Copyright (c) 2026 qq-wechat-trace contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## 第三方组件声明（Third-Party Notices）
+
+本仓库的代码以 MIT 许可发布，但**包含对一处第三方组件的运行时依赖**，该组件
+不随本仓库分发。完整说明见 [DEPENDENCIES.md](DEPENDENCIES.md) 与
+[README.md](README.md) 的「许可」一节。
+
+| 组件 | 来源 | 许可 | 分发方式 |
+|---|---|---|---|
+| `windows_ntqq_get_key.ps1` | [QQBackup/qq-win-db-key](https://github.com/QQBackup/qq-win-db-key) | 非商用开源协议 第 1 版 | **不随仓库分发**——由 `scripts/fetch_qq_key.ps1` 在运行时从上游拉取并打一个补丁后执行 |
+
+该组件的版权归 **LY (Young-Lord)** 所有。因为它不随本仓库分发，所以不构成衍生分发；
+`scripts/fetch_qq_key.ps1` 是本仓库自研的 MIT 代码，其内已注明上游来源、许可、版权
+与补丁日期，尽到署名与标注义务。
+
+**使用者注意**：若你自行从上游获取该脚本，请遵守其**非商用**条款——本项目的 MIT
+许可**不覆盖**该第三方组件。
