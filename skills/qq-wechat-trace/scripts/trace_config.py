@@ -155,7 +155,7 @@ class Config(object):
 
     @property
     def wx_account(self):
-        return os.environ.get('QQT_WX_ACCOUNT') or self.need('wx_account', '微信账号目录名，形如 wxid_xxxx / fkxxxxxxxx')
+        return os.environ.get('QQT_WX_ACCOUNT') or self.need('wx_account', '微信账号目录名，形如 wxid_xxxx 或其它目录名')
 
     # ---------- 根目录 ----------
     @property
@@ -173,7 +173,7 @@ class Config(object):
     def wx_data_root(self):
         """微信 xwechat_files 所在目录。"""
         return _expand(os.environ.get('QQT_WX_HOME') or
-                       self.need('wx_data_root', '微信数据根目录，一般是 <盘>:\\files\\xwechat_files'))
+                       self.need('wx_data_root', '微信数据根目录，一般是 <盘>:\\...\\xwechat_files'))
 
     @property
     def keys_dir(self):
