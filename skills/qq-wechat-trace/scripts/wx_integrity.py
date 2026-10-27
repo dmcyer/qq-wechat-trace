@@ -2,8 +2,8 @@ import sqlcipher3, json, os, time
 from trace_config import cfg
 B = cfg.keys_dir
 KEYMAP = json.load(open(cfg.wx_keymap(), encoding="utf-8"))
-WORKDIRS = {0: "new_00", 1: "new_10", 2: "new_2", 3: "new_3", 4: "new_4", 5: "new_5", 6: "new_6"}
-for i in sorted(WORKDIRS):
+SHARD_COUNT = 7  # 分片库数量，需与 wx_copy_shards.py 保持一致
+for i in range(SHARD_COUNT):
     rel = "message\\message_%d.db" % i
     p = os.path.join(cfg.wx_shard_dir(i), cfg.wx_account, 'db_storage', 'message', 'message_%d.db' % i)
     if not os.path.exists(p):

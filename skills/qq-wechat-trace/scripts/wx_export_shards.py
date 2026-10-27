@@ -8,8 +8,8 @@ from trace_config import cfg
 B = cfg.keys_dir
 KEYMAP = json.load(open(cfg.wx_keymap(), encoding="utf-8"))
 OUTDIR = cfg.outdir("wx")
-WORKDIRS = {0: "new_00", 1: "new_10", 2: "new_2", 3: "new_3", 4: "new_4", 5: "new_5", 6: "new_6"}
-SHARDS = list(WORKDIRS.keys())
+SHARD_COUNT = 7  # 分片库数量，需与 wx_copy_shards.py 保持一致
+SHARDS = list(range(SHARD_COUNT))
 
 TYPE_NAMES = {1: '文本', 3: '图片', 34: '语音', 43: '视频', 47: '表情', 48: '位置', 49: '链接/文件', 42: '名片',
               50: '通话', 10000: '系统提示', 244813135921: '复合类型A', 21474836529: '复合类型B'}

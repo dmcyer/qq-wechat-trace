@@ -2,7 +2,7 @@ import sqlcipher3, json, hashlib, os, datetime, sys
 from trace_config import cfg
 B = cfg.keys_dir
 KEYMAP = json.load(open(cfg.wx_keymap(), encoding="utf-8"))
-WORKDIRS = {0: "new_00", 1: "new_10", 2: "new_2", 3: "new_3", 4: "new_4", 5: "new_5", 6: "new_6"}
+SHARD_COUNT = 7  # 分片库数量，需与 wx_copy_shards.py 保持一致
 EXPORTED = set(cfg.groups('wx'))
 
 
@@ -52,7 +52,7 @@ print("微信群总数: %d（其中有名字的 %d）" % (len(rooms), sum(1 for 
 
 # 每个库里有哪些 Msg_ 表
 tabs = {}
-for i in WORKDIRS:
+for i in range(SHARD_COUNT):
     c = openc(i)
     if not c:
         continue

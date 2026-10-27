@@ -20,6 +20,36 @@ node_modules/
 export_*/
 *.log
 
+# === 兜底层：上面几行只挡「目录」，挡不住改了 home 或手动拷到仓库根的同名文件 ===
+# 聊天库本体（脚本会产出 nt_msg_clear_<uin>.db / message_N.db / contact.db 等）
+*.db
+*.db3
+*.sqlite
+*.sqlite3
+*-wal
+*-shm
+*-journal
+
+# 平铺的导出文本（export_*/ 只挡目录，不挡 export_xxx.txt 这种单文件）
+export_*.txt
+export*.txt
+*.csv
+*.jsonl
+*.ndjson
+
+# 密钥（keys/ 只挡目录；改成散落单文件就漏了）
+keys.txt
+*.key
+*_key*.txt
+*.pem
+
+# 默认工作根本身（config.example.json 里 home 默认 "./out"）
+out/
+
+# 备份副本与环境变量（QQT_* 若固化进 .env 会带上真实 QQ 号与路径）
+*.bak
+.env
+
 # 编辑器
 .idea/
 .vscode/

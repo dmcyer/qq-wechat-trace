@@ -9,7 +9,7 @@
 ## ⚠️ 先读这段：本手册是「实战实录」，不是「开箱即用的操作指南」
 
 这份手册记录的是**实战方法论**，早期曾用写死路径的开发目录；**公开仓库以 `config.json` + `scripts/` 为准**（见下表）。
-旧脚本名（`qq_export_group.py`、`qq_export_all_v2.py` …）与备份盘（`D:\qq_db_backup_<日期>\`）
+旧脚本名（`qq_export_group.py`、`qq_export_all_v2.py` …）与备份盘（`<备份盘>:\qq_db_backup_<日期>\`）
 是**当时的现场形态**，其中一部分脚本在整理成公开仓库时被重命名、合并或淘汰了。
 
 **要直接照着手册跑一遍，请以 `scripts\` 里的实际文件为准**，对照关系如下：
@@ -48,7 +48,7 @@ python scripts/qq_export_all.py
 
 | 资产 | 位置 | 状态 |
 |---|---|---|
-| 原库备份 | `D:\qq_db_backup_<日期>\nt_db\nt_msg.db`（约 20GB+） | ✅ 完整快照（WAL 已合并） |
+| 原库备份 | `<备份盘>:\qq_db_backup_<日期>\nt_db\nt_msg.db`（约 20GB+） | ✅ 完整快照（WAL 已合并） |
 | **已解密库** | `<home>/work/nt_msg_clear_<QQ号>.db`（约 20GB+） | ✅ 可直接 SQL 查询，**导出不需要开 QQ** |
 | 密钥 | `keys/QQ_DB_KEY_<QQ号>.txt` | ✅ 粘性（跨重启/跨登录不变） |
 | 导出工具 | `scripts/qq_export_all.py` | ✅ 已实测（protobuf 解析+损坏跳过） |
@@ -300,7 +300,7 @@ for i in sorted(锚点):
 ### 3.1 重新备份（要最新数据时）
 ```powershell
 Get-Process -Name QQ | Stop-Process -Force   # 必须关，WAL 才合并
-robocopy "<QQ_DATA_ROOT>\<QQ_UIN>\nt_qq" "D:\qq_db_backup_<新日期>" /E /Z /R:2 /W:5
+robocopy "<QQ_DATA_ROOT>\<QQ_UIN>\nt_qq" "<备份盘>:\qq_db_backup_<新日期>" /E /Z /R:2 /W:5
 ```
 
 ### 3.2 重新提密钥（仅改密/重装后需要；需用户配合登录一次）
@@ -330,7 +330,7 @@ irm https://raw.githubusercontent.com/QQBackup/qq-win-db-key/master/scripts/wind
 |---|---|
 | 已解密库（直接用） | `<home>/work/nt_msg_clear_<QQ号>.db` |
 | 密钥 | `keys/QQ_DB_KEY_<QQ号>.txt` |
-| 原库备份 | `D:\qq_db_backup_<日期>\nt_db\nt_msg.db` |
+| 原库备份 | `<备份盘>:\qq_db_backup_<日期>\nt_db\nt_msg.db` |
 | 导出工具 | `scripts/qq_export_all.py` |
 | 群名单 | `（运行 scripts/qq_survey_all.py 查看）` |
 | 完整避坑笔记 | `备份与还原路径笔记.md` 第 5 节 |
@@ -345,7 +345,7 @@ irm https://raw.githubusercontent.com/QQBackup/qq-win-db-key/master/scripts/wind
 
 ### 阶段 1：备份（约 3 分钟）
 1. 关掉全部 QQ 进程
-2. robocopy `nt_msg.db` + `-wal` + `-shm` → `D:\qq_db_backup_<日期>`
+2. robocopy `nt_msg.db` + `-wal` + `-shm` → `<备份盘>:\qq_db_backup_<日期>`
 3. **发现**：拷贝时 wal/shm 已不存在——SQLite 在连接关闭时已 checkpoint 并删除，主库自 11:03 起零写入 → 干净完整快照（事后“完整解密成功”反证）
 4. 补拷两个 `.material` 文件
 
